@@ -10,7 +10,8 @@ public class GameController : MonoBehaviour
 	{
 		SLOW,
 		MEDIUM,
-		FAST
+		FAST,
+		GODSPEED
 	};
 
 	public EnemySpeed setting = EnemySpeed.SLOW;
@@ -34,7 +35,6 @@ public class GameController : MonoBehaviour
 
 	#endregion
 
-
 	#region Variables
 
 	public int score = 0;
@@ -48,8 +48,6 @@ public class GameController : MonoBehaviour
 	public Canvas pauseScreen;
 
 	public float spawnrate = 0.7f;
-
-	public int gamePause = 0;
 
 	private float timer = 0f;
 
@@ -66,35 +64,48 @@ public class GameController : MonoBehaviour
 	{
 		switch (setting)
 		{
-		case EnemySpeed.SLOW:
+			case EnemySpeed.SLOW:
 			{
 				block.moveSpeed = 15;
+
+				if (timer > 10f)
+				{
+					setting = EnemySpeed.MEDIUM;
+				}
 			}
 			break;
 
-		case EnemySpeed.MEDIUM:
+			case EnemySpeed.MEDIUM:
 			{
 				block.moveSpeed = 25;
+
+				if (timer > 15f)
+				{
+					setting = EnemySpeed.FAST;
+				}
+
 			}
 			break;
 
-		case EnemySpeed.FAST:
+			case EnemySpeed.FAST:
 			{
 				block.moveSpeed = 50;
+
+				if (timer > 25f)
+				{
+					setting = EnemySpeed.GODSPEED;
+				}
 			}
 			break;
-		}
 
-		if (setting == EnemySpeed.SLOW && timer > 10f)
-		{
-			setting = EnemySpeed.MEDIUM;
-		}
+			case EnemySpeed.GODSPEED:
+			{
+				block.moveSpeed = 100;
+			}
+			break;
 
-		if (setting == EnemySpeed.MEDIUM && timer > 15f)
-		{
-			setting = EnemySpeed.FAST;
 		}
-
+			
 		timer += Time.deltaTime;
 
 	}
@@ -111,7 +122,6 @@ public class GameController : MonoBehaviour
 	public void NewGame ()
 	{
 		score = 0;
-		gamePause = 0;
 		setting = EnemySpeed.SLOW;
 		DeleteSave ();
 	}

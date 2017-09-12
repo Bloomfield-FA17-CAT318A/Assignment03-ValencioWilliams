@@ -16,9 +16,7 @@ public class PlayerBlock : MonoBehaviour
 			return instance;
 		}
 	}
-
-
-
+		
 	public Panel panel1, panel2, panel3;
 
 	public int currentPanel = 0;
@@ -31,6 +29,7 @@ public class PlayerBlock : MonoBehaviour
 	void Update ()
 	{
 		Inputs ();
+
 		BlockMove ();
 	}
 
